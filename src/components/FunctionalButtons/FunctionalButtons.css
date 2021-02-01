@@ -1,0 +1,32 @@
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+.button-group {
+    display: flex;
+}
+.button {
+    width: 50px;
+    height: 50px;
+    background-color: gray;
+    color: white;
+    border-radius: 50%;
+    outline: none;
+    text-align: center;
+    margin-right: 5px;
+    border: none;
+    transition: all 0.5s ease;
+}
+
+.start {
+    background-color:green;
+}
+.stop {
+    background-color: red;
+}
+
+.button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all 0.5s ease;
+}
