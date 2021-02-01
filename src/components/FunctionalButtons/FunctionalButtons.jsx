@@ -5,7 +5,7 @@ export function FunctionalButtons(props) {
         <div className='buttons'>
             <div className='button-group'>
                 <button className='button circle'>Circle</button>
-                 <button className='button drop' onClick={props.drop}>Drop</button>
+                <button className='button drop' onClick={props.drop}>Drop</button>
             </div>
             <div className='button-group'>
                 <button className='button start' onClick={props.start}>Start</button>

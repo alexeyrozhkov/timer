@@ -4,6 +4,7 @@ import {FunctionalButtons} from '../FunctionalButtons/FunctionalButtons.jsx';
 import React from "react";
 
 const defaultValue = 0;
+const secondsInMinute = 60;
 let timer;
 
 export class Timer extends React.Component {
@@ -12,22 +13,25 @@ export class Timer extends React.Component {
 
         this.state = {
             seconds: 0,
-            minutes: 0
+            minutes: 0,
+            results: [] // { seconds: number; minutes: number;}
         }
         this.start = this.start.bind(this);
         this.stop = this.stop.bind(this);
         this.drop = this.drop.bind(this);
+        this.addResult = this.addResult.bind(this);
     }
     start() {
         if (timer) {
             return;
         }
         timer = setInterval(() => {
-            this.setState({seconds: this.state.seconds + 1})
-            if(this.state.seconds === 60) {
-                this.setState({minutes: this.state.minutes + 1, seconds: defaultValue})
+            const updatedSeconds =  this.state.seconds + 1;
+            this.setState({seconds: updatedSeconds % secondsInMinute})
+            if(!(updatedSeconds % secondsInMinute)) {
+                this.setState({minutes: this.state.minutes + 1})
             }
-        },1000);
+        }, 1000);
        
     }
     stop() {
@@ -39,12 +43,22 @@ export class Timer extends React.Component {
         timer = undefined;
         this.setState({minutes:defaultValue, seconds: defaultValue})
     }
+    addResult() {
+        const currentResult = {
+            minutes: this.state.minutes,
+            seconds: this.state.seconds
+        };
 
+        const resultsCopy = [...this.state.results];
+        resultsCopy.push(currentResult);
+        this.setState({ results: resultsCopy });
+    }
     render() {
         return (
             <div className='timer'>
                 <Scoreboard seconds={this.state.seconds} minutes={this.state.minutes}/>
                 <FunctionalButtons start={this.start} stop={this.stop} drop={this.drop}/>
+                {/* <List></List> */}
             </div>
         )
     }
