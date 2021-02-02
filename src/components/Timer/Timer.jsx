@@ -1,6 +1,7 @@
 import './Timer.css';
 import {Scoreboard} from '../Scoreboard/Scoreboard.jsx';
 import {FunctionalButtons} from '../FunctionalButtons/FunctionalButtons.jsx';
+import {List} from '../List/List.jsx';
 import React from "react";
 
 const defaultValue = 0;
@@ -41,7 +42,7 @@ export class Timer extends React.Component {
     drop() {
         clearInterval(timer);
         timer = undefined;
-        this.setState({minutes:defaultValue, seconds: defaultValue})
+        this.setState({minutes:defaultValue, seconds: defaultValue, results: []})
     }
     addResult() {
         const currentResult = {
@@ -57,8 +58,8 @@ export class Timer extends React.Component {
         return (
             <div className='timer'>
                 <Scoreboard seconds={this.state.seconds} minutes={this.state.minutes}/>
-                <FunctionalButtons start={this.start} stop={this.stop} drop={this.drop}/>
-                {/* <List></List> */}
+                <FunctionalButtons start={this.start} stop={this.stop} drop={this.drop} circle={this.addResult}/>
+                <List circles ={this.state.results}/>
             </div>
         )
     }
